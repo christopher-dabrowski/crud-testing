@@ -1,0 +1,8 @@
+# OSX filesystem file
+.DS_Store
+
+# VSCode configuration
+.vscode
+
+# Folder with postgres data
+postgres_data/
