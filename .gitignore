@@ -1,3 +1,9 @@
+# Maven build artefacts
+target/
+
+# IntelliJ config
+.idea
+
 # OSX filesystem file
 .DS_Store
 
