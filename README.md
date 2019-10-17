@@ -9,9 +9,16 @@ Do testów zostanie napisana prosta aplikacja do zarządzania rodzinnym budżete
 Członkowie rodziny będą mogli wpisywać jakie produkty domowe kupili. Na tej podstawie będzie można zobaczyć raport ile należy zwrócić pieniędzy każdej osobie.  
 Będzie można też wpisać produkty, które mają zostać kupione (**lista zakupów**).
 
+## Model bazy danych
+
+Schemat ERD bazy przedstawia plik [Data_model.svg](./Data_model.svg).  
+Został on wykonany w programie StarUML.
+
 ## Przygotowanie środowiska
 
 ### Postgres
+
+[Skrypt tworzący table](./DDL/data_model_table_create.sql).
 
 #### Instalacja
 
