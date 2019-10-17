@@ -323,20 +323,35 @@
 											"top": 351,
 											"width": 208.296875,
 											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAFt2lA1s0ztEGo=",
+											"_parent": {
+												"$ref": "AAAAAAFt2UZAfV3p3DQ="
+											},
+											"model": {
+												"$ref": "AAAAAAFt2lA1pEzqzRM="
+											},
+											"font": "Arial;13;0",
+											"left": 285,
+											"top": 366,
+											"width": 208.296875,
+											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 280,
 									"top": 271,
 									"width": 218.296875,
-									"height": 98
+									"height": 113
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 280,
 							"top": 248,
 							"width": 218.296875,
-							"height": 121,
+							"height": 136,
 							"nameLabel": {
 								"$ref": "AAAAAAFt2UZAfV3ocIk="
 							},
@@ -882,6 +897,16 @@
 							},
 							"name": "amount",
 							"type": "INTEGER"
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAFt2lA1pEzqzRM=",
+							"_parent": {
+								"$ref": "AAAAAAFt2UZAfV3lIG4="
+							},
+							"name": "settled",
+							"type": "BOOLEAN",
+							"length": 0
 						}
 					]
 				},

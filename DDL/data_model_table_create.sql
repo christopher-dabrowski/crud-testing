@@ -20,6 +20,7 @@ CREATE TABLE public.purchase (
     date timestamp without time zone NOT NULL DEFAULT NOW(),
     family_member integer NOT NULL,
     amount integer NOT NULL DEFAULT 1,
+    settled boolean NOT NULL DEFAULT false,
     PRIMARY KEY (id)
 );
 
