@@ -18,19 +18,28 @@ Został on wykonany w programie StarUML.
 
 ### Postgres
 
-[Skrypt tworzący table](./DDL/data_model_table_create.sql).
+Baza działa jako kontener Dockera.
 
 #### Instalacja
 
-`docker pull postgres`
+Zbudowanie obrazu na podstawie [Dockerfile](./Dockerfile).  
+`docker build -t testing_postgres .`
+
+Dzięki temu zostanie wykonany skrypt [tworzący tabele](./DDL/data_model_table_create.sql)
 
 #### Uruchomienie
 
-`docker run --rm   --name pg-docker -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 -v $PWD/postgres_data:/var/lib/postgresql/data  postgres`
+Dane bazy będą zapisywane do katalogu _postgres_data_.  
+`docker run --rm --name pg-docker -e -d -p 5432:5432 -v $PWD/postgres_data:/var/lib/postgresql/data  testing_postgres`
 
 #### Połączenie
 
 Można na przykład użyć pgAdmin4.
 
+* **login:** postgres
+* **hasło:** postgres
+
 #### Zatrzymanie
+
+Dane nie będą usunięte.
 `docker stop pg-docker`
