@@ -1,3 +1,8 @@
+# Some intelliJ files (Not sure)
+.classpath
+.project
+.settings/
+
 # Maven build artefacts
 target/
 
