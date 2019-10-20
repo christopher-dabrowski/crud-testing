@@ -2,7 +2,10 @@ import entity.FamilyMember;
 import entity.Product;
 import entity.Purchase;
 import entity.ShoppingList;
-import org.hibernate.*;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -52,6 +55,43 @@ public class CRUD {
 
     public static Purchase createPurchase(String productName, float money, int familyMember, int amount, boolean settled){
         Purchase purchase = new Purchase();
+	    int prodId = -1;
+	    List<Product> products = listProducts();
+	    for (Product x : products) {
+		    if (x.getName().equals(productName)) {
+			    prodId = x.getId();
+			    break;
+		    }
+	    }
+	    if (prodId != -1) {
+		    purchase.setProduct_id(prodId);
+	    } else {
+		    Product newProduct = createProduct(productName);
+		    purchase.setProduct_id(newProduct.getId());
+	    }
+
+	    purchase.setMoney(money);
+
+	    List<FamilyMember> familyMembers = listFamilyMembers();
+	    int famMem = -1;
+	    for (FamilyMember x : familyMembers) {
+		    if (x.getId() == familyMember) {
+			    famMem = familyMember;
+			    break;
+		    }
+	    }
+	    if (famMem != -1) {
+		    purchase.setFamily_member(familyMember);
+	    } else {
+		    System.out.println("Podany członek rodziny nie istnieje");
+		    return null;
+	    }
+
+	    purchase.setAmount(amount);
+	    purchase.setSettled(settled);
+
+	    // TODO
+
         return purchase;
     }
 
@@ -59,6 +99,11 @@ public class CRUD {
         ShoppingList shoppingList = new ShoppingList();
         return shoppingList;
     }
+
+	public static ShoppingList editRecordOnShoppingList(String productName, int amount) {
+		ShoppingList shoppingList = new ShoppingList();
+		return shoppingList;
+	}
     
     public static List<Product> listProducts() {
         Session session = buildSessionFactory().openSession();
