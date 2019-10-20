@@ -1,4 +1,5 @@
 import entity.FamilyMember;
+import entity.Product;
 import org.junit.Test;
 
 import java.util.List;
@@ -20,6 +21,26 @@ public class ReadTests {
         for(FamilyMember familyMember : result) {
             if (familyMember.getName().equals(knownName)
                 && familyMember.getSurname().equals(knownSurname)) {
+                notInTheList = false;
+                break;
+            }
+        }
+
+        assertFalse(notInTheList);
+    }
+
+    @Test
+    void findKnownProductInDatabase() {
+        //Given
+        String productName = "szynka";
+
+        //When
+        List<Product> result = CRUD.listProducts();
+
+        //Then
+        boolean notInTheList = true;
+        for(Product product : result) {
+            if (product.getName().equals(productName)) {
                 notInTheList = false;
                 break;
             }
