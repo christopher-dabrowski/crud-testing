@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.Currency;
 
 @Entity
 @Table(name = "Purchase")
@@ -79,6 +78,18 @@ public class Purchase {
 	}
 
 	public void setSettled(boolean settled) {
+		this.settled = settled;
+	}
+
+	public Purchase() {
+	}
+
+	public Purchase(int product_id, float money, LocalDateTime date, int family_member, int amount, boolean settled) {
+		this.product_id = product_id;
+		this.money = money;
+		this.date = date;
+		this.family_member = family_member;
+		this.amount = amount;
 		this.settled = settled;
 	}
 }

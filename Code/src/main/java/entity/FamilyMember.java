@@ -36,4 +36,12 @@ public class FamilyMember {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
+    public FamilyMember(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
+    public FamilyMember() {
+    }
 }

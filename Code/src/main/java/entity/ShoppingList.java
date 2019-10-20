@@ -27,4 +27,12 @@ public class ShoppingList {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
+
+	public ShoppingList() {
+	}
+
+	public ShoppingList(int product_id, int amount) {
+		this.product_id = product_id;
+		this.amount = amount;
+	}
 }
