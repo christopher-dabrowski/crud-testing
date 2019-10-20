@@ -79,4 +79,16 @@ public class Purchase {
 	public void setSettled(boolean settled) {
 		this.settled = settled;
 	}
+
+	public Purchase() {
+	}
+
+	public Purchase(int product_id, Currency money, LocalDateTime date, int family_member, int amount, boolean settled) {
+		this.product_id = product_id;
+		this.money = money;
+		this.date = date;
+		this.family_member = family_member;
+		this.amount = amount;
+		this.settled = settled;
+	}
 }
