@@ -1,4 +1,5 @@
 import entity.FamilyMember;
+import entity.Product;
 import org.junit.Test;
 
 import java.util.List;
@@ -10,8 +11,8 @@ public class CreateTests {
 	@Test
 	public void createFamilyMember() {
 		//Given
-		String name = "Andrzej";
-		String surname = "Andrzejewicz";
+		String name = "AAA";
+		String surname = "AAA";
 
 		//When
 		FamilyMember familyMember = CRUD.createFamilyMember(name, surname);
@@ -20,7 +21,7 @@ public class CreateTests {
 		//Then
 		boolean onList = false;
 		for (FamilyMember f : familyMemberList) {
-			if (familyMember.getName().equals(name) && familyMember.getSurname().equals(surname)) {
+			if (f.getName().equals(name) && f.getSurname().equals(surname)) {
 				onList = true;
 				break;
 			}
@@ -30,6 +31,22 @@ public class CreateTests {
 
 	@Test
 	public void createProduct() {
+		//Given
+		String productName = "piwo";
+
+		//When
+		Product product = CRUD.createProduct(productName);
+		List<Product> productList = CRUD.listProducts();
+
+		//Then
+		boolean onList = false;
+		for (Product p : productList) {
+			if (p.getName().equals(productName)) {
+				onList = true;
+				break;
+			}
+		}
+		assertTrue(onList);
 	}
 
 	@Test
