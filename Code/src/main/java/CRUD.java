@@ -99,7 +99,12 @@ public class CRUD {
 			    int amountToEdit = x.getAmount() + amount;
 			    editRecordOnShoppingList(x.getProduct_id(), amountToEdit);
 			    editedAmount = true;
-			    break;
+
+			    // DEBUG
+			    System.out.println("Not yet implemented.");
+			    return null;
+			    // DEBUG
+//			    break;
 		    }
 	    }
 	    if (!editedAmount) {
