@@ -55,6 +55,8 @@ public class CRUD {
 
     public static Purchase createPurchase(String productName, float money, int familyMember, int amount, boolean settled){
         Purchase purchase = new Purchase();
+	    System.out.println("Creating new purchase");
+
 	    int prodId = -1;
 	    List<Product> products = listProducts();
 	    for (Product x : products) {
@@ -90,19 +92,37 @@ public class CRUD {
 	    purchase.setAmount(amount);
 	    purchase.setSettled(settled);
 
-	    // TODO
+	    List<ShoppingList> shoppingListList = listShoppingListItems();
+	    boolean editedAmount = false;
+	    for (ShoppingList x : shoppingListList) {
+		    if (x.getProduct_id() == purchase.getProduct_id()) {
+			    int amountToEdit = x.getAmount() + amount;
+			    editRecordOnShoppingList(x.getProduct_id(), amountToEdit);
+			    editedAmount = true;
+			    break;
+		    }
+	    }
+	    if (!editedAmount) {
+		    createNewRecordOnShoppingList(purchase.getProduct_id(), amount);
+	    }
+
+	    Session session = buildSessionFactory().openSession();
+	    Transaction t = session.beginTransaction();
+
+	    session.save(purchase);
+	    t.commit();
+	    System.out.println("Purchase created");
+	    session.close();
 
         return purchase;
     }
 
-    public static ShoppingList createNewRecordOnShoppingList(String productName, int amount){
+	public static void createNewRecordOnShoppingList(int productId, int amount) {
         ShoppingList shoppingList = new ShoppingList();
-        return shoppingList;
     }
 
-	public static ShoppingList editRecordOnShoppingList(String productName, int amount) {
+	private static void editRecordOnShoppingList(int productId, int amount) {
 		ShoppingList shoppingList = new ShoppingList();
-		return shoppingList;
 	}
     
     public static List<Product> listProducts() {
@@ -171,7 +191,7 @@ public class CRUD {
         return result;
     }
 
-    public static List<ShoppingList> listShpppingListItems() {
+	public static List<ShoppingList> listShoppingListItems() {
         Session session = buildSessionFactory().openSession();
         List<ShoppingList> result = null;
 

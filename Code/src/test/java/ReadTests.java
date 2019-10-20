@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
 
 public class ReadTests {
     @Test
@@ -84,7 +84,7 @@ public class ReadTests {
         int knownAmount = 2;
 
         //When
-        List<ShoppingList> items = CRUD.listShpppingListItems();
+        List<ShoppingList> items = CRUD.listShoppingListItems();
 
         //Then
         boolean notInTheList = true;
