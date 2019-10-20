@@ -1,6 +1,7 @@
 import entity.FamilyMember;
 import entity.Product;
 import entity.Purchase;
+import entity.ShoppingList;
 import org.junit.Test;
 
 import java.util.List;
@@ -68,6 +69,28 @@ public class ReadTests {
                 && purchase.getMoney() == knownPrice
                 && purchase.getFamily_member() == knownFamilyMemberID
                 && purchase.getAmount() == knownAmount) {
+                notInTheList = false;
+                break;
+            }
+        }
+
+        assertFalse(notInTheList);
+    }
+
+    @Test
+    public void findKnownShoppingListItem() {
+        //Given
+        int knownProducID = 6;
+        int knownAmount = 2;
+
+        //When
+        List<ShoppingList> items = CRUD.listShpppingListItems();
+
+        //Then
+        boolean notInTheList = true;
+        for(ShoppingList item : items) {
+            if (item.getProduct_id() == knownProducID
+                && item.getAmount() == knownAmount) {
                 notInTheList = false;
                 break;
             }
