@@ -118,7 +118,16 @@ public class CRUD {
     }
 
 	public static void createNewRecordOnShoppingList(int productId, int amount) {
-        ShoppingList shoppingList = new ShoppingList();
+		ShoppingList shoppingList = new ShoppingList(productId, amount);
+		System.out.println("Creating new record on shopping list...");
+
+		Session session = buildSessionFactory().openSession();
+		Transaction t = session.beginTransaction();
+
+		session.save(shoppingList);
+		t.commit();
+		System.out.println("New record on shopping list added.");
+		session.close();
     }
 
 	private static void editRecordOnShoppingList(int productId, int amount) {
