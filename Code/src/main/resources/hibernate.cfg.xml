@@ -17,6 +17,9 @@
         <property name="format_sql">true</property> <!-- Show SQL formatted -->
 
         <mapping class="entity.Product"/>
+        <mapping class="entity.FamilyMember"/>
+        <mapping class="entity.Purchase"/>
+        <mapping class="entity.ShoppingList"/>
 
     </session-factory>
 </hibernate-configuration>
