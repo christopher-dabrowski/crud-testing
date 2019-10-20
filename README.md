@@ -30,7 +30,7 @@ Dzięki temu zostanie wykonany skrypt [tworzący tabele](./DDL/data_model_table_
 #### Uruchomienie
 
 Dane bazy będą zapisywane do katalogu _postgres_data_.  
-`docker run --rm --name pg-docker -e -d -p 5432:5432 -v $PWD/postgres_data:/var/lib/postgresql/data  testing_postgres`
+`docker run --rm --name pg-docker -d -p 5432:5432 -v $PWD/postgres_data:/var/lib/postgresql/data  testing_postgres`
 
 #### Połączenie
 
@@ -41,5 +41,5 @@ Można na przykład użyć pgAdmin4.
 
 #### Zatrzymanie
 
-Dane nie będą usunięte.
+Dane nie będą usunięte.  
 `docker stop pg-docker`
