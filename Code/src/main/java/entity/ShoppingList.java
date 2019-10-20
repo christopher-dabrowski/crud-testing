@@ -1,11 +1,13 @@
 package entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "shopping_list")
 public class ShoppingList {
+	@Id
 	private int product_id;
 
 	private int amount;

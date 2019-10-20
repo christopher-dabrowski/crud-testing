@@ -1,5 +1,6 @@
 package entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,6 +14,7 @@ public class Purchase {
 
 	private int product_id;
 
+	@Column(name = "price")
 	private float money;
 
 	private LocalDateTime date;
