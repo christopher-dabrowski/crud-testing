@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.Currency;
 
 @Entity
 @Table(name = "Purchase")
@@ -14,7 +13,7 @@ public class Purchase {
 
 	private int product_id;
 
-	private Currency money;
+	private float money;
 
 	private LocalDateTime date;
 
@@ -40,11 +39,11 @@ public class Purchase {
 		this.product_id = product_id;
 	}
 
-	public Currency getMoney() {
+	public float getMoney() {
 		return money;
 	}
 
-	public void setMoney(Currency money) {
+	public void setMoney(float money) {
 		this.money = money;
 	}
 
@@ -83,7 +82,7 @@ public class Purchase {
 	public Purchase() {
 	}
 
-	public Purchase(int product_id, Currency money, LocalDateTime date, int family_member, int amount, boolean settled) {
+	public Purchase(int product_id, float money, LocalDateTime date, int family_member, int amount, boolean settled) {
 		this.product_id = product_id;
 		this.money = money;
 		this.date = date;

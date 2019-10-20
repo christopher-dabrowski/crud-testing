@@ -1,5 +1,7 @@
 import entity.FamilyMember;
 import entity.Product;
+import entity.Purchase;
+import entity.ShoppingList;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -16,43 +18,43 @@ public class CRUD {
         return meta.getSessionFactoryBuilder().build();
     }
 
-    private static FamilyMember createFamilyMember(String name, String surname){
+    public static FamilyMember createFamilyMember(String name, String surname){
         FamilyMember fm = new FamilyMember(name, surname);
         System.out.println("Creating new family member...");
 
-        StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
-        Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
-
-        SessionFactory factory = meta.getSessionFactoryBuilder().build();
-        Session session = factory.openSession();
+        Session session = buildSessionFactory().openSession();
         Transaction t = session.beginTransaction();
 
         session.save(fm);
         t.commit();
         System.out.println("Family member created");
-        factory.close();
         session.close();
 
         return fm;
     }
 
-    private static Product createProduct(String name){
+    public static Product createProduct(String name){
         Product product = new Product(name);
         System.out.println("Creating new product");
 
-        StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
-        Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
-
-        SessionFactory factory = meta.getSessionFactoryBuilder().build();
-        Session session = factory.openSession();
+        Session session = buildSessionFactory().openSession();
         Transaction t = session.beginTransaction();
 
         session.save(product);
         t.commit();
         System.out.println("Product created");
-        factory.close();
         session.close();
 
         return product;
+    }
+
+    public static Purchase createPurchase(String productName, float money, int familyMember, int amount, boolean settled){
+        Purchase purchase = new Purchase();
+        return purchase;
+    }
+
+    public static ShoppingList createNewRecordOnShoppingList(String productName, int amount){
+        ShoppingList shoppingList = new ShoppingList();
+        return shoppingList;
     }
 }
