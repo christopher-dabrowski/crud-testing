@@ -1,5 +1,6 @@
 import entity.FamilyMember;
 import entity.Product;
+import entity.Purchase;
 import org.junit.Test;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class ReadTests {
     }
 
     @Test
-    void findKnownProductInDatabase() {
+    public void findKnownProductInDatabase() {
         //Given
         String productName = "szynka";
 
@@ -41,6 +42,32 @@ public class ReadTests {
         boolean notInTheList = true;
         for(Product product : result) {
             if (product.getName().equals(productName)) {
+                notInTheList = false;
+                break;
+            }
+        }
+
+        assertFalse(notInTheList);
+    }
+
+    @Test
+    public void findKnownPurchaseInDatabase() {
+        //Given
+        int knowProductID = 2;
+        float knownPrice = 2.85f;
+        int knownFamilyMemberID = 1;
+        int knownAmount = 2;
+
+        //When
+        List<Purchase> purchases = CRUD.listPurchases();
+
+        //Then
+        boolean notInTheList = true;
+        for(Purchase purchase : purchases) {
+            if (purchase.getId() == knowProductID
+                && purchase.getMoney() == knownPrice
+                && purchase.getFamily_member() == knownFamilyMemberID
+                && purchase.getAmount() == knownAmount) {
                 notInTheList = false;
                 break;
             }
