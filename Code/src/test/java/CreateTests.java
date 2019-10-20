@@ -1,5 +1,6 @@
 import entity.FamilyMember;
 import entity.Product;
+import entity.Purchase;
 import org.junit.Test;
 
 import java.util.List;
@@ -51,6 +52,18 @@ public class CreateTests {
 
 	@Test
 	public void createPurchase() {
+		//Given
+		String productName = "pomidorówka";
+		float money = 3.59f;
+		int familyMember = 1;
+		int amount = 1;
+		boolean settled = true;
+
+		//When
+		Purchase purchase = CRUD.createPurchase(productName, money, familyMember, amount, settled);
+		List<Purchase> purchaseList = CRUD.listPurchases();
+		//Then
+		assertTrue(purchaseList.contains(purchase));
 	}
 
 	@Test
