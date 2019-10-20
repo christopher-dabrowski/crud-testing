@@ -14,13 +14,13 @@ import java.util.List;
 
 public class CRUD {
 
-    private static SessionFactory buildSessionFactory() {
+    public static SessionFactory buildSessionFactory() {
         StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
         Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
         return meta.getSessionFactoryBuilder().build();
     }
     
-    private static List<Product> listProducts() {
+    public static List<Product> listProducts() {
         Session session = buildSessionFactory().openSession();
         List<Product> result = null;
 
@@ -42,7 +42,7 @@ public class CRUD {
         return result;
     }
 
-    private static List<FamilyMember> listFamilyMembers() {
+    public static List<FamilyMember> listFamilyMembers() {
         Session session = buildSessionFactory().openSession();
         List<FamilyMember> result = null;
 
@@ -64,7 +64,7 @@ public class CRUD {
         return result;
     }
 
-    private static List<Purchase> listPurchases() {
+    public static List<Purchase> listPurchases() {
         Session session = buildSessionFactory().openSession();
         List<Purchase> result = null;
 
@@ -86,7 +86,7 @@ public class CRUD {
         return result;
     }
 
-    private static List<ShoppingList> listShpppingListItems() {
+    public static List<ShoppingList> listShpppingListItems() {
         Session session = buildSessionFactory().openSession();
         List<ShoppingList> result = null;
 
