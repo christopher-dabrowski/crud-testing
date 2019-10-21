@@ -9,7 +9,7 @@ import java.util.Objects;
 @Table(name = "Purchase")
 public class Purchase {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	private int product_id;
