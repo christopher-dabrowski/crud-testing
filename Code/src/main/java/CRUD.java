@@ -10,6 +10,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import java.io.Serializable;
 import java.util.List;
 
 public class CRUD {
@@ -18,6 +19,82 @@ public class CRUD {
         StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
         Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
         return meta.getSessionFactoryBuilder().build();
+    }
+
+    public static void deleteFamilyMember(Serializable id) {
+        Session session = buildSessionFactory().openSession();
+        try {
+            Transaction t = session.beginTransaction();
+
+            FamilyMember toDelete = session.get(FamilyMember.class, id);
+            session.delete(toDelete);
+
+            t.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+        finally {
+            session.close();
+        }
+
+    }
+
+    public static void deleteProduct(Serializable id) {
+        Session session = buildSessionFactory().openSession();
+        try {
+            Transaction t = session.beginTransaction();
+
+            Product toDelete = session.get(Product.class, id);
+            session.delete(toDelete);
+
+            t.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+        finally {
+            session.close();
+        }
+
+    }
+
+    public static void deletePurchase(Serializable id) {
+        Session session = buildSessionFactory().openSession();
+        try {
+            Transaction t = session.beginTransaction();
+
+            Purchase toDelete = session.get(Purchase.class, id);
+            session.delete(toDelete);
+
+            t.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+        finally {
+            session.close();
+        }
+
+    }
+
+    public static void deleteShoppingListItem(Serializable id) {
+        Session session = buildSessionFactory().openSession();
+        try {
+            Transaction t = session.beginTransaction();
+
+            ShoppingList toDelete = session.get(ShoppingList.class, id);
+            session.delete(toDelete);
+
+            t.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+        finally {
+            session.close();
+        }
+
     }
   
     public static FamilyMember createFamilyMember(String name, String surname){
