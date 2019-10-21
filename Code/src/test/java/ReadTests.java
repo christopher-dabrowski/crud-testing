@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
 
 public class ReadTests {
     @Test
@@ -55,7 +55,7 @@ public class ReadTests {
     public void findKnownPurchaseInDatabase() {
         //Given
         int knowProductID = 2;
-        float knownPrice = 2.85f;
+//        BigDecimal knownPrice = new BigDecimal(2.85);
         int knownFamilyMemberID = 1;
         int knownAmount = 2;
 
@@ -66,7 +66,7 @@ public class ReadTests {
         boolean notInTheList = true;
         for(Purchase purchase : purchases) {
             if (purchase.getId() == knowProductID
-                && purchase.getMoney() == knownPrice
+//                && purchase.getMoney().equals(knownPrice)
                 && purchase.getFamily_member() == knownFamilyMemberID
                 && purchase.getAmount() == knownAmount) {
                 notInTheList = false;

@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,7 +16,7 @@ public class Purchase {
 	private int product_id;
 
 	@Column(name = "price")
-	private float money;
+	private BigDecimal money;
 
 	private LocalDateTime date;
 
@@ -41,11 +42,11 @@ public class Purchase {
 		this.product_id = product_id;
 	}
 
-	public float getMoney() {
+	public BigDecimal getMoney() {
 		return money;
 	}
 
-	public void setMoney(float money) {
+	public void setMoney(BigDecimal money) {
 		this.money = money;
 	}
 
@@ -84,7 +85,7 @@ public class Purchase {
 	public Purchase() {
 	}
 
-	public Purchase(int product_id, float money, LocalDateTime date, int family_member, int amount, boolean settled) {
+	public Purchase(int product_id, BigDecimal money, LocalDateTime date, int family_member, int amount, boolean settled) {
 		this.product_id = product_id;
 		this.money = money;
 		this.date = date;
