@@ -42,6 +42,27 @@ public class CRUD {
         }
     }
 
+    public static void updateProduct(Serializable id, String newName) {
+        Session session = buildSessionFactory().openSession();
+        try {
+            Transaction t = session.beginTransaction();
+
+            Product toUpdate = session.get(Product.class, id);
+            toUpdate.setName(newName);
+            toUpdate.setName(newName);
+
+            session.update(toUpdate);
+
+            t.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+        finally {
+            session.close();
+        }
+    }
+
     public static void deleteFamilyMember(Serializable id) {
         Session session = buildSessionFactory().openSession();
         try {
