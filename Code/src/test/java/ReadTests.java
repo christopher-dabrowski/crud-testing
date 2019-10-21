@@ -66,7 +66,6 @@ public class ReadTests {
         boolean notInTheList = true;
         for(Purchase purchase : purchases) {
             if (purchase.getId() == knowProductID
-//                && purchase.getMoney().equals(knownPrice)
                 && purchase.getFamily_member() == knownFamilyMemberID
                 && purchase.getAmount() == knownAmount) {
                 notInTheList = false;
@@ -84,7 +83,7 @@ public class ReadTests {
         int knownAmount = 2;
 
         //When
-        List<ShoppingList> items = CRUD.listShpppingListItems();
+        List<ShoppingList> items = CRUD.listShoppingListItems();
 
         //Then
         boolean notInTheList = true;

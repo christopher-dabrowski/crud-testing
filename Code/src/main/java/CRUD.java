@@ -2,14 +2,24 @@ import entity.FamilyMember;
 import entity.Product;
 import entity.Purchase;
 import entity.ShoppingList;
-import org.hibernate.*;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
+import org.hibernate.type.StandardBasicTypes;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.io.Serializable;
 import java.util.List;
 
@@ -146,6 +156,10 @@ public class CRUD {
         Session session = buildSessionFactory().openSession();
         Transaction t = session.beginTransaction();
 
+        Query query = session.createSQLQuery("SELECT MAX(family_member.id) + 1 AS new_id FROM family_member");
+        int id = (int) query.getSingleResult();
+        fm.setId(id);
+
         session.save(fm);
         t.commit();
         System.out.println("Family member created");
@@ -161,6 +175,10 @@ public class CRUD {
         Session session = buildSessionFactory().openSession();
         Transaction t = session.beginTransaction();
 
+        Query query = session.createSQLQuery("SELECT MAX(id) + 1 AS new_id FROM product");
+        int id = (int) query.getSingleResult();
+        product.setId(id);
+
         session.save(product);
         t.commit();
         System.out.println("Product created");
@@ -169,15 +187,73 @@ public class CRUD {
         return product;
     }
 
-    public static Purchase createPurchase(String productName, float money, int familyMember, int amount, boolean settled){
+    public static Purchase createPurchase(String productName, BigDecimal money, int familyMember, int amount, boolean settled){
         Purchase purchase = new Purchase();
+        purchase.setDate(LocalDateTime.now());
+	    System.out.println("Creating new purchase");
+
+	    int prodId = -1;
+	    List<Product> products = listProducts();
+	    for (Product x : products) {
+		    if (x.getName().equals(productName)) {
+			    prodId = x.getId();
+			    break;
+		    }
+	    }
+	    if (prodId != -1) {
+		    purchase.setProduct_id(prodId);
+	    } else {
+		    Product newProduct = createProduct(productName);
+		    purchase.setProduct_id(newProduct.getId());
+	    }
+
+	    purchase.setMoney(money);
+
+	    List<FamilyMember> familyMembers = listFamilyMembers();
+	    int famMem = -1;
+	    for (FamilyMember x : familyMembers) {
+		    if (x.getId() == familyMember) {
+			    famMem = familyMember;
+			    break;
+		    }
+	    }
+	    if (famMem != -1) {
+		    purchase.setFamily_member(familyMember);
+	    } else {
+		    System.out.println("Podany członek rodziny nie istnieje");
+		    return null;
+	    }
+
+	    purchase.setAmount(amount);
+	    purchase.setSettled(settled);
+
+	    Session session = buildSessionFactory().openSession();
+	    Transaction t = session.beginTransaction();
+
+	    session.save(purchase);
+	    t.commit();
+	    System.out.println("Purchase created");
+	    session.close();
+
         return purchase;
     }
 
-    public static ShoppingList createNewRecordOnShoppingList(String productName, int amount){
-        ShoppingList shoppingList = new ShoppingList();
-        return shoppingList;
+	public static void createNewRecordOnShoppingList(int productId, int amount) {
+		ShoppingList shoppingList = new ShoppingList(productId, amount);
+		System.out.println("Creating new record on shopping list...");
+
+		Session session = buildSessionFactory().openSession();
+		Transaction t = session.beginTransaction();
+
+		session.save(shoppingList);
+		t.commit();
+		System.out.println("New record on shopping list added.");
+		session.close();
     }
+
+	private static void editRecordOnShoppingList(int productId, int amount) {
+		ShoppingList shoppingList = new ShoppingList();
+	}
     
     public static List<Product> listProducts() {
         Session session = buildSessionFactory().openSession();
@@ -245,7 +321,7 @@ public class CRUD {
         return result;
     }
 
-    public static List<ShoppingList> listShpppingListItems() {
+	public static List<ShoppingList> listShoppingListItems() {
         Session session = buildSessionFactory().openSession();
         List<ShoppingList> result = null;
 

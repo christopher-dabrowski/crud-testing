@@ -1,16 +1,15 @@
 package entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Purchase")
 public class Purchase {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	private int product_id;
@@ -83,6 +82,24 @@ public class Purchase {
 	}
 
 	public Purchase() {
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Purchase purchase = (Purchase) o;
+		return product_id == purchase.product_id &&
+				family_member == purchase.family_member &&
+				amount == purchase.amount &&
+				settled == purchase.settled &&
+				money.equals(purchase.money) &&
+				date.equals(purchase.date);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(product_id, money, date, family_member, amount, settled);
 	}
 
 	public Purchase(int product_id, BigDecimal money, LocalDateTime date, int family_member, int amount, boolean settled) {
