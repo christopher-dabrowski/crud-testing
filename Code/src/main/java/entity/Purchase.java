@@ -1,7 +1,9 @@
 package entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Purchase")
@@ -13,7 +15,7 @@ public class Purchase {
 	private int product_id;
 
 	@Column(name = "price")
-	private float money;
+	private BigDecimal money;
 
 	private LocalDateTime date;
 
@@ -39,11 +41,11 @@ public class Purchase {
 		this.product_id = product_id;
 	}
 
-	public float getMoney() {
+	public BigDecimal getMoney() {
 		return money;
 	}
 
-	public void setMoney(float money) {
+	public void setMoney(BigDecimal money) {
 		this.money = money;
 	}
 
@@ -82,7 +84,25 @@ public class Purchase {
 	public Purchase() {
 	}
 
-	public Purchase(int product_id, float money, LocalDateTime date, int family_member, int amount, boolean settled) {
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Purchase purchase = (Purchase) o;
+		return product_id == purchase.product_id &&
+				family_member == purchase.family_member &&
+				amount == purchase.amount &&
+				settled == purchase.settled &&
+				money.equals(purchase.money) &&
+				date.equals(purchase.date);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(product_id, money, date, family_member, amount, settled);
+	}
+
+	public Purchase(int product_id, BigDecimal money, LocalDateTime date, int family_member, int amount, boolean settled) {
 		this.product_id = product_id;
 		this.money = money;
 		this.date = date;

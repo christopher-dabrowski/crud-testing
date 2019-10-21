@@ -66,7 +66,7 @@ public class ReadTests {
         boolean notInTheList = true;
         for(Purchase purchase : purchases) {
             if (purchase.getId() == knowProductID
-                && purchase.getMoney() == knownPrice
+//                && purchase.getMoney() == knownPrice
                 && purchase.getFamily_member() == knownFamilyMemberID
                 && purchase.getAmount() == knownAmount) {
                 notInTheList = false;

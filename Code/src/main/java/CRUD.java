@@ -10,9 +10,16 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
+import org.hibernate.type.StandardBasicTypes;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class CRUD {
@@ -30,6 +37,10 @@ public class CRUD {
         Session session = buildSessionFactory().openSession();
         Transaction t = session.beginTransaction();
 
+        Query query = session.createSQLQuery("SELECT MAX(family_member.id) + 1 AS new_id FROM family_member");
+        int id = (int) query.getSingleResult();
+        fm.setId(id);
+
         session.save(fm);
         t.commit();
         System.out.println("Family member created");
@@ -45,6 +56,10 @@ public class CRUD {
         Session session = buildSessionFactory().openSession();
         Transaction t = session.beginTransaction();
 
+        Query query = session.createSQLQuery("SELECT MAX(id) + 1 AS new_id FROM product");
+        int id = (int) query.getSingleResult();
+        product.setId(id);
+
         session.save(product);
         t.commit();
         System.out.println("Product created");
@@ -53,8 +68,9 @@ public class CRUD {
         return product;
     }
 
-    public static Purchase createPurchase(String productName, float money, int familyMember, int amount, boolean settled){
+    public static Purchase createPurchase(String productName, BigDecimal money, int familyMember, int amount, boolean settled){
         Purchase purchase = new Purchase();
+        purchase.setDate(LocalDateTime.now());
 	    System.out.println("Creating new purchase");
 
 	    int prodId = -1;
@@ -91,25 +107,6 @@ public class CRUD {
 
 	    purchase.setAmount(amount);
 	    purchase.setSettled(settled);
-
-	    List<ShoppingList> shoppingListList = listShoppingListItems();
-	    boolean editedAmount = false;
-	    for (ShoppingList x : shoppingListList) {
-		    if (x.getProduct_id() == purchase.getProduct_id()) {
-			    int amountToEdit = x.getAmount() + amount;
-			    editRecordOnShoppingList(x.getProduct_id(), amountToEdit);
-			    editedAmount = true;
-
-			    // DEBUG
-			    System.out.println("Not yet implemented.");
-			    return null;
-			    // DEBUG
-//			    break;
-		    }
-	    }
-	    if (!editedAmount) {
-		    createNewRecordOnShoppingList(purchase.getProduct_id(), amount);
-	    }
 
 	    Session session = buildSessionFactory().openSession();
 	    Transaction t = session.beginTransaction();
